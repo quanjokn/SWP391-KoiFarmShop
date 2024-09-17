@@ -5,7 +5,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
-        <title>Clean Blog - Start Bootstrap Theme</title>
+        <!--Tên title sẽ tự add theo database hoặc sử dụng gì đó thêm vào không cụ thể-->
+        <title>Tên tự thêm sau này</title>
         <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
         <!-- Font Awesome icons (free version)-->
         <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
@@ -14,12 +15,16 @@
         <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css" />
         <!-- Core theme CSS (includes Bootstrap)-->
         <link href="css/styles.css" rel="stylesheet" />
+        <link href="css/main.css" rel="stylesheet" />
     </head>
     <body>
         <!-- Navigation-->
         <nav class="navbar navbar-expand-lg navbar-light" id="mainNav">
             <div class="container px-4 px-lg-5">
-                <a class="navbar-brand" href="index.html">Start Bootstrap</a>
+                <!--Chỗ này đợi Home page title-->
+                <a href="index.html" class="LogoShop">
+                    <img src="assets/img/logo.jpg" alt="Logo">
+                </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                     Menu
                     <i class="fas fa-bars"></i>
@@ -35,17 +40,17 @@
             </div>
         </nav>
         <!-- Page Header-->
-        <header class="masthead" style="background-image: url('assets/img/post-bg.jpg')">
+        <header class="masthead" style="background-image: url('assets/img/KoiFish.jpg')">
             <div class="container position-relative px-4 px-lg-5">
                 <div class="row gx-4 gx-lg-5 justify-content-center">
                     <div class="col-md-10 col-lg-8 col-xl-7">
                         <div class="post-heading">
-                            <h1>Man must explore, and this is exploration at its greatest</h1>
-                            <h2 class="subheading">Problems look mighty small from 150 miles up</h2>
+                            <h1>Tiêu đề tin tức</h1>
+                            <h2 class="subheading">Giải thích tiêu đề tin tức</h2>
                             <span class="meta">
-                                Posted by
-                                <a href="#!">Start Bootstrap</a>
-                                on August 24, 2023
+                                Được đăng bởi
+                                ai
+                                vào ngày/tháng/năm
                             </span>
                         </div>
                     </div>
@@ -84,41 +89,57 @@
             </div>
         </article>
         <!-- Footer-->
-        <footer class="border-top">
-            <div class="container px-4 px-lg-5">
-                <div class="row gx-4 gx-lg-5 justify-content-center">
-                    <div class="col-md-10 col-lg-8 col-xl-7">
-                        <ul class="list-inline text-center">
-                            <li class="list-inline-item">
-                                <a href="#!">
-                                    <span class="fa-stack fa-lg">
-                                        <i class="fas fa-circle fa-stack-2x"></i>
-                                        <i class="fab fa-twitter fa-stack-1x fa-inverse"></i>
-                                    </span>
-                                </a>
-                            </li>
-                            <li class="list-inline-item">
-                                <a href="#!">
-                                    <span class="fa-stack fa-lg">
-                                        <i class="fas fa-circle fa-stack-2x"></i>
-                                        <i class="fab fa-facebook-f fa-stack-1x fa-inverse"></i>
-                                    </span>
-                                </a>
-                            </li>
-                            <li class="list-inline-item">
-                                <a href="#!">
-                                    <span class="fa-stack fa-lg">
-                                        <i class="fas fa-circle fa-stack-2x"></i>
-                                        <i class="fab fa-github fa-stack-1x fa-inverse"></i>
-                                    </span>
-                                </a>
-                            </li>
-                        </ul>
-                        <div class="small text-center text-muted fst-italic">Copyright &copy; Your Website 2023</div>
-                    </div>
+        <footer class="bg-dark text-white pt-4 pb-2">
+            <div class="container">
+              <div class="row">
+                <div class="col-md-4">
+                  <h5>Koi farm Shop</h5>
+                  <ul class="list-unstyled">
+                    <li><a href="#" class="text-white">Về chúng tôi</a></li>
+                    <li><a href="#" class="text-white">Đặt hàng online</a></li>
+                    <li><a href="#" class="text-white">Danh sách mặt hàng</a></li>
+                    <li><a href="#" class="text-white">Tin tức</a></li>
+                    <li><a href="#" class="text-white">Hỗ trợ kỹ thuật</a></li>
+                    <li><a href="#" class="text-white">Liên hệ chúng tôi</a></li>
+                  </ul>
                 </div>
+                <div class="col-md-4">
+                  <h5>Thông tin cá nhân</h5>
+                  <ul class="list-unstyled">
+                    <li><a href="#" class="text-white">Đăng ký/Đăng nhập</a></li>
+                    <li><a href="#" class="text-white">Quản lý tài khoản</a></li>
+                    <li><a href="#" class="text-white">Đăng xuất</a></li>
+                    <li><a href="#" class="text-white">Thông tin cá nhân</a></li>
+                    <li><a href="#" class="text-white">Hướng dẫn mua bán</a></li>
+                  </ul>
+                </div>
+                <div class="col-md-4">
+                  <h5>Dịch vụ</h5>
+                  <ul class="list-unstyled">
+                    <li><a href="#" class="text-white">Gói hàng cá online/offline</a></li>
+                    <li><a href="#" class="text-white">Danh sách điểm giao nhận hàng</a></li>
+                    <li><a href="#" class="text-white">Ký gửi chăm sóc</a></li>
+                    <li><a href="#" class="text-white">Chính sách bảo mật</a></li>
+                    <li><a href="#" class="text-white">Chính sách đổi trả hàng</a></li>
+                  </ul>
+                </div>
+              </div>
+              <hr/>
+              <div class="row text-center mt-3">
+                <div class="col-12">
+                  <p>Công Ty TNHH Koi Farm</p>
+                  <p>Số 1 Đường số 102, P.Tân Phú, Q9, TP.HCM</p>
+                  <p>Email: lienhe@koifarmshop.com</p>
+                  <p>Điện thoại: 0123456789 / 9876543210</p>
+                  <p>©2024 Koi Farm Shop. All rights reserved.</p>
+                  <p>Powered by Bootstrap</p>
+                </div>
+              </div>
             </div>
-        </footer>
+          </footer>
+          
+          
+          
         <!-- Bootstrap core JS-->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
         <!-- Core theme JS-->
