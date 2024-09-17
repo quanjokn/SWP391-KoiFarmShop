@@ -29,29 +29,27 @@
 [ HEADER ]*/
 .header {
   display: flex;
-  align-items: flex-end;
+  align-items: center; /* Center items vertically */
   background-color: red;
-  justify-content: space-between; /* Đặt khoảng cách giữa các phần tử */
-  padding: 0 15px;
+  justify-content: center; /* Center content horizontally */
+  padding: 25px 15px;
+  position: relative; /* Needed for positioning the heading centrally */
+}
+
+.header-logo {
+  position: absolute; /* Allows the image to be positioned independently */
+  left: 15px; /* Adjust this value for horizontal positioning */
+}
+
+.header img {
+  height: 100px; /* Adjust this value to resize the image */
+  width: auto;  /* Maintain aspect ratio */
 }
 
 .header h2 {
   color: white;
   font: italic small-caps bold 24px/2 cursive;
   margin: 0;
-}
-
-.header button {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: white; 
-  background-color: black;
-  padding: 12px 20px;
-  border-radius: 35px;
-  cursor: pointer;
-  border: none;
-  margin: 0; /* Xóa margin để không bị lệch */
 }
 
 /*//////////////////////////////////////////////////////////////////
