@@ -1,9 +1,20 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import '@fortawesome/fontawesome-free/css/all.min.css';
-import styles from './styles.module.css';
+import styles from './login.module.css';
 import { useNavigate } from 'react-router-dom'; // Nhập useNavigate
 
 export const LoginForm = () => {
+    useEffect(() => {
+        document.body.style.backgroundImage = "url('/imagines/background/Koi.jpg')";
+        document.body.style.backgroundSize = "cover";
+        document.body.style.backgroundPosition = "center";
+
+        // Khôi phục background khi rời khỏi trang
+        return () => {
+            document.body.style.backgroundImage = ""; // Hoặc thiết lập lại theo mặc định
+        };
+    }, []);
+
     const navigate = useNavigate(); // Khởi tạo useNavigate
 
     const handleGoogleLogin = () => {
@@ -37,38 +48,40 @@ export const LoginForm = () => {
     };
 
     return (
-        <div className={styles.wrapper}> {/* Sửa ở đây */}
-            <form onSubmit={handleLogin}>
-                <h1>Đăng nhập</h1>
-                <div className={styles['input-box']}>
-                    <input name='username' type='text' placeholder='Tên đăng nhập' required />
-                </div>
-                <div className={styles['input-box']}>
-                    <input name='pass' type='password' placeholder='Mật khẩu' required />
-                </div>
-                <div className={styles['remmember-forgot']}>
-                    <label><input type='checkbox' />Lưu tài khoản</label>
-                    <a href="#">Quên mật khẩu</a>
-                </div>
+        <>
+            <div className={styles.wrapper}> {/* Sửa ở đây */}
+                <form onSubmit={handleLogin}>
+                    <h1>Đăng nhập</h1>
+                    <div className={styles['input-box']}>
+                        <input name='username' type='text' placeholder='Tên đăng nhập' required />
+                    </div>
+                    <div className={styles['input-box']}>
+                        <input name='pass' type='password' placeholder='Mật khẩu' required />
+                    </div>
+                    <div className={styles['remmember-forgot']}>
+                        <label><input type='checkbox' />Lưu tài khoản</label>
+                        <a href="" onClick={() => navigate('/forgot-password')}>Quên mật khẩu</a>
+                    </div>
 
-                <button type='submit'>Đăng nhập</button>
+                    <button type='submit'>Đăng nhập</button>
 
-                <div className={styles.socialLogin}>
-                    <a href="#" className={styles.btnFace} onClick={handleFacebookLogin}>
-                        <i className="fab fa-facebook"></i>
-                        Facebook
-                    </a>
-                    <a href="#" className={styles.btnGoogle} onClick={handleGoogleLogin}>
-                        <img src="/imagines/icon/icon-google.png" alt="GOOGLE" />
-                        Google
-                    </a>
-                </div>
+                    <div className={styles.socialLogin}>
+                        <a href="#" className={styles.btnFace} onClick={handleFacebookLogin}>
+                            <i className="fab fa-facebook"></i>
+                            Facebook
+                        </a>
+                        <a href="#" className={styles.btnGoogle} onClick={handleGoogleLogin}>
+                            <img src="/imagines/icon/icon-google.png" alt="GOOGLE" />
+                            Google
+                        </a>
+                    </div>
 
-                <div className={styles['register-link']}>
-                    <p>Không có tài khoản ? <a href='' onClick={() => navigate('/register')}>Đăng kí ngay</a></p>
-                </div>
-            </form>
-        </div>
+                    <div className={styles['register-link']}>
+                        <p>Không có tài khoản ? <a href='' onClick={() => navigate('/register')}>Đăng kí ngay</a></p>
+                    </div>
+                </form>
+            </div>
+        </>
     );
 };
 

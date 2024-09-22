@@ -1,8 +1,20 @@
 import React, { useState } from 'react';
+import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from './styles.module.css'; // Giả sử bạn có một CSS module để định kiểu
 
 const RegisterForm = () => {
+    useEffect(() => {
+        document.body.style.backgroundImage = "url('/imagines/background/Koi.jpg')";
+        document.body.style.backgroundSize = "cover";
+        document.body.style.backgroundPosition = "center";
+
+        // Khôi phục background khi rời khỏi trang
+        return () => {
+            document.body.style.backgroundImage = ""; // Hoặc thiết lập lại theo mặc định
+        };
+    }, []);
+
     const [errors, setErrors] = useState({});
     const navigate = useNavigate();
 

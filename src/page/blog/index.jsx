@@ -1,9 +1,16 @@
-import React from 'react';
-import styles from './styles.module.css';
+import React, { useEffect } from 'react';
+import styles from './blog.module.css';
 import Footer from '../../component/footer';
 
 
 const Blog = () => {
+    useEffect(() => {
+        document.body.style.backgroundColor = "white"; // Màu nền cho trang chủ
+
+        return () => {
+            document.body.style.backgroundColor = ""; // Khôi phục về mặc định nếu cần
+        };
+    }, []);
     return (
         <>
             <header className={`${styles.masthead}`} style={{ backgroundImage: "url('imagines/background/KoiFish.jpg')" }}>

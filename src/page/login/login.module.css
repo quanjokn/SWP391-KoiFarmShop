@@ -13,7 +13,6 @@
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    background-image: url('/public/imagines/background/Koi.jpg');
 }
 
 .wrapper {
@@ -85,6 +84,7 @@
     font-family: 'Kadwa', sans-serif;
     cursor: pointer;
     font-weight: 700;
+    height: 50px;
 }
 
 .wrapper .register-link {
@@ -107,13 +107,15 @@
     margin-top: 20px;
     display: flex;
     gap: 10px;
-    justify-content: center; /* Center align */
+    justify-content: center;
 }
 
 .btnFace, .btnGoogle {
     display: flex;
     align-items: center;
+    justify-content: center;
     padding: 10px 25px;
+    width: 100%; /* Thêm chiều rộng bằng nhau */
     border-radius: 5px;
     font-size: 16px;
     font-weight: bold;
@@ -123,30 +125,33 @@
 
 .btnFace {
     color: white;
-    background-color: #3b5998; /* Màu xanh Facebook */
+    background-color: #3b5998;
 }
 
 .btnGoogle {
-    color: white;
-    background-color: #db4437; /* Màu đỏ Google */
+    color: white; /* Điều chỉnh màu chữ để dễ đọc hơn */
+    background-color: #db4437;
     border: 1px solid #dbdbdb;
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
 }
 
 .btnFace i, .btnGoogle img {
     margin-right: 10px;
-    font-size: 18px;
 }
 
 .btnFace:hover {
-    background-color: #344e86; /* Darker blue on hover */
+    background-color: #344e86;
+    color: red;
 }
 
 .btnGoogle:hover {
-    background-color: #f5f5f5; /* Light grey on hover */
+    background-color: #f5f5f5;
+    color: red;
 }
 
 .btnGoogle img {
-    width: 18px; /* Adjust Google logo size */
+    width: 18px;
     height: 18px;
 }
+
+/*#db4437*/

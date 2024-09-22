@@ -6,7 +6,7 @@ import RegisterForm from './page/register';
 import Home from './page/home';
 import Blog from './page/blog';
 import BlogDetail from './page/blog detail';
-
+import ForgotPassword from './page/forgot';
 function App() {
   const router = createBrowserRouter([
     {
@@ -28,6 +28,10 @@ function App() {
     {
       path: "title",
       element: <BlogDetail />,  // Trang đăng kí
+    },
+    {
+      path: '/forgot-password',
+      element: <ForgotPassword />
     },
   ]);
 

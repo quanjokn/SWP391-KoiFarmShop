@@ -2,6 +2,14 @@ import React, { useEffect, useState } from 'react';
 import styles from './styles.module.css';
 
 const BlogDetail = () => {
+    useEffect(() => {
+        document.body.style.backgroundColor = "white"; // Màu nền cho trang chủ
+
+        return () => {
+            document.body.style.backgroundColor = ""; // Khôi phục về mặc định nếu cần
+        };
+    }, []);
+
     const [post, setPost] = useState(null);
     const [error, setError] = useState(null);
 
