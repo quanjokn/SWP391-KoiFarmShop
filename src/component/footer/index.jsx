@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from './styles.module.css';
+import styles from './footer.module.css';
 
 const Footer = () => {
     return (
@@ -8,7 +8,7 @@ const Footer = () => {
         }}>
             <div className={`col-md-4 ${styles.blackBg}`}>
                 <div style={{ paddingLeft: '30px', textAlign: 'center' }}>
-                    <img src="imagines/background/logo.jpg" alt="Koi Farm" className={styles.logo} />
+                    <img src="/imagines/background/logo.jpg" alt="Koi Farm" className={styles.logo} />
                     <p>Koi Farm Shop LLC@, 2024</p>
                     <p>Công Ty TNHH Koi Farm Shop</p>
                     <p>Copyright 2024</p>

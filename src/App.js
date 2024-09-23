@@ -7,6 +7,7 @@ import Home from './page/home';
 import Blog from './page/blog';
 import BlogDetail from './page/blog detail';
 import ForgotPassword from './page/forgot';
+
 function App() {
   const router = createBrowserRouter([
     {
@@ -22,12 +23,12 @@ function App() {
       element: <RegisterForm />,  // Trang đăng kí
     },
     {
-      path: "blog",
-      element: <Blog />,  // Trang đăng kí
+      path: "tin-tuc",
+      element: <Blog />,  // Trang tin tức
     },
     {
-      path: "title",
-      element: <BlogDetail />,  // Trang đăng kí
+      path: "post/:postId",  // Đường dẫn động để lấy chi tiết bài viết
+      element: <BlogDetail />,  // Trang chi tiết bài viết
     },
     {
       path: '/forgot-password',
@@ -37,6 +38,5 @@ function App() {
 
   return <RouterProvider router={router} />;
 }
-
 
 export default App;

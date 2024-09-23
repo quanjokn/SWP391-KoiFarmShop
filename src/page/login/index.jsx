@@ -1,76 +1,87 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import styles from './login.module.css';
-import { useNavigate } from 'react-router-dom'; // Nhập useNavigate
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 export const LoginForm = () => {
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
+    const [errorMessage, setErrorMessage] = useState(''); // Thêm state cho thông báo lỗi
+
+    const navigate = useNavigate();
+
     useEffect(() => {
         document.body.style.backgroundImage = "url('/imagines/background/Koi.jpg')";
         document.body.style.backgroundSize = "cover";
         document.body.style.backgroundPosition = "center";
 
-        // Khôi phục background khi rời khỏi trang
         return () => {
-            document.body.style.backgroundImage = ""; // Hoặc thiết lập lại theo mặc định
+            document.body.style.backgroundImage = ""; // Khôi phục khi rời khỏi trang
         };
     }, []);
-
-    const navigate = useNavigate(); // Khởi tạo useNavigate
-
-    const handleGoogleLogin = () => {
-        // Xử lý đăng nhập bằng Google ở đây
-        console.log("Đăng nhập bằng Google");
-    };
-
-    const handleFacebookLogin = () => {
-        // Xử lý đăng nhập bằng Facebook ở đây
-        console.log("Đăng nhập bằng Facebook");
-    };
 
     const handleLogin = async (e) => {
         e.preventDefault(); // Ngăn chặn reload trang khi submit form
 
-        const username = e.target.username.value; // Tên đăng nhập
-        const pass = e.target.pass.value; // Mật khẩu
+        const loginValues = { username, password };
 
-        const loginValues = { username, pass }; // Tạo object chứa thông tin đăng nhập
+        try {
+            const response = await axios.post('https://dummyjson.com/auth/login', loginValues);
+            console.log('Đăng nhập thành công:', response.data);
 
-        console.log(loginValues);
-
-        // try {
-        //     // Gửi req đến server
-        //     const response = await api.post('login', values);
-        //     console.log(response);
-        //     // Xử lý phản hồi từ server ở đây (ví dụ: lưu token, chuyển hướng, thông báo...)
-        // } catch (error) {
-        //     console.error('Đăng nhập không thành công:', error); // Xử lý lỗi nếu có
-        // }
+            localStorage.setItem('token', response.data.token);
+            navigate('/');
+        } catch (error) {
+            setErrorMessage("Tài khoản hoặc mật khẩu sai"); // Cập nhật thông báo lỗi
+        }
     };
 
     return (
         <>
-            <div className={styles.wrapper}> {/* Sửa ở đây */}
+            <div className={styles.wrapper}>
                 <form onSubmit={handleLogin}>
                     <h1>Đăng nhập</h1>
+                    {errorMessage && <p className={styles.error}>{errorMessage}</p>} {/* Hiển thị thông báo lỗi */}
+
                     <div className={styles['input-box']}>
-                        <input name='username' type='text' placeholder='Tên đăng nhập' required />
+                        <input
+                            name='username'
+                            type='text'
+                            placeholder='Tên đăng nhập'
+                            value={username}
+                            onChange={(e) => setUsername(e.target.value)}
+                            required
+                        />
                     </div>
                     <div className={styles['input-box']}>
-                        <input name='pass' type='password' placeholder='Mật khẩu' required />
+                        <input
+                            name='pass'
+                            type='password'
+                            placeholder='Mật khẩu'
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                            required
+                        />
                     </div>
                     <div className={styles['remmember-forgot']}>
                         <label><input type='checkbox' />Lưu tài khoản</label>
-                        <a href="" onClick={() => navigate('/forgot-password')}>Quên mật khẩu</a>
+                        <a href="#" onClick={() => navigate('/forgot-password')}>Quên mật khẩu</a>
+                    </div>
+                    <div className={styles.buttonGroup}>
+                        <button type="button" style={{ backgroundColor: 'gray' }} onClick={() => navigate('/')}>Quay lại</button>
+                        <button type='submit'>Đăng nhập</button>
                     </div>
 
-                    <button type='submit'>Đăng nhập</button>
+                    <div className={styles.titleLogin}>
+                        <h3>Đăng nhập với</h3>
+                    </div>
 
                     <div className={styles.socialLogin}>
-                        <a href="#" className={styles.btnFace} onClick={handleFacebookLogin}>
-                            <i className="fab fa-facebook"></i>
-                            Facebook
+                        <a href="#" className={styles.btnFace} onClick={() => console.log("Đăng nhập bằng Facebook")}>
+                            <i className="fab fa-facebook"></i>Facebook
                         </a>
-                        <a href="#" className={styles.btnGoogle} onClick={handleGoogleLogin}>
+                        <a href="#" className={styles.btnGoogle} onClick={() => console.log("Đăng nhập bằng Google")}>
                             <img src="/imagines/icon/icon-google.png" alt="GOOGLE" />
                             Google
                         </a>

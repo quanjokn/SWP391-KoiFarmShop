@@ -10,7 +10,7 @@ const Home = () => {
                 <a href='' onClick={() => navigate('/login')}>Login</a>
             </div>
             <div>
-                <a href='' onClick={() => navigate('/blog')}>Blog</a>
+                <a href='' onClick={() => navigate('/tin-tuc')}>Blog</a>
             </div>
         </div>
     );

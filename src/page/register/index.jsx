@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
-import { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import styles from './styles.module.css'; // Giả sử bạn có một CSS module để định kiểu
+import styles from './styles.module.css'; // CSS module cho định kiểu
+import axios from 'axios'; // Import axios để gọi API
 
 const RegisterForm = () => {
     useEffect(() => {
@@ -9,26 +9,34 @@ const RegisterForm = () => {
         document.body.style.backgroundSize = "cover";
         document.body.style.backgroundPosition = "center";
 
-        // Khôi phục background khi rời khỏi trang
         return () => {
-            document.body.style.backgroundImage = ""; // Hoặc thiết lập lại theo mặc định
+            document.body.style.backgroundImage = ""; // Khôi phục khi rời khỏi trang
         };
     }, []);
 
     const [errors, setErrors] = useState({});
+    const [registerValues, setRegisterValues] = useState({
+        username: '',
+        password: '',
+        email: '',
+        phoneNumber: ''
+    });
+
     const navigate = useNavigate();
 
-    // Logic JavaScript để xử lý việc gửi form
-    const handleRegister = (e) => {
-        e.preventDefault(); // Ngăn trang reload khi gửi form
+    const handleInputChange = (e) => {
+        setRegisterValues({
+            ...registerValues,
+            [e.target.name]: e.target.value
+        });
+    };
 
-        // Lấy giá trị từ các trường input
-        const username = e.target.username.value;
-        const password = e.target.pass.value;
-        const email = e.target.email.value;
-        const phoneNumber = e.target['phone-number'].value;
+    const handleRegister = async (e) => {
+        e.preventDefault();
 
-        // Regex để xác thực email và số điện thoại
+        const { username, password, email, phoneNumber } = registerValues;
+
+        // Regex xác thực email và số điện thoại
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         const phoneRegex = /^\d{10}$/;
 
@@ -44,7 +52,7 @@ const RegisterForm = () => {
             newErrors.phoneNumber = 'Số điện thoại phải có 10 chữ số!';
         }
 
-        // Cập nhật lỗi nếu có
+        // Cập nhật lỗi
         setErrors(newErrors);
 
         // Ngừng gửi nếu có lỗi xác thực
@@ -52,33 +60,70 @@ const RegisterForm = () => {
             return;
         }
 
-        // Tạo một đối tượng chứa dữ liệu đăng kí
-        const registerValues = { username, password, email, phoneNumber };
+        try {
+            // Gửi request tới API đăng ký
+            const response = await axios.post('https://dummyjson.com/users/add', {
+                username,
+                password,
+                email,
+                phone: phoneNumber
+            });
+            console.log('Đăng ký thành công:', response.data);
 
-        // Ghi lại giá trị đăng kí để xử lý sau
-        console.log(registerValues);
-        // Bạn có thể xử lý quá trình đăng kí ở đây (ví dụ: gọi API)
+            // Sau khi đăng ký thành công, chuyển hướng tới trang đăng nhập
+            navigate('/login');
+        } catch (error) {
+            console.error('Đăng ký không thành công:', error);
+        }
     };
 
     return (
         <div className={styles.wrapper}>
             <form onSubmit={handleRegister}>
-                <h1>Đăng kí</h1>
+                <h1>Đăng ký</h1>
                 <div className={styles.inputBox}>
-                    <input name='username' type='text' placeholder='Tên đăng nhập' required />
+                    <input
+                        name='username'
+                        type='text'
+                        placeholder='Tên đăng nhập'
+                        value={registerValues.username}
+                        onChange={handleInputChange}
+                        required
+                    />
                 </div>
                 <div className={styles.inputBox}>
-                    <input name='pass' type='password' placeholder='Mật khẩu' required />
+                    <input
+                        name='password'
+                        type='password'
+                        placeholder='Mật khẩu'
+                        value={registerValues.password}
+                        onChange={handleInputChange}
+                        required
+                    />
                 </div>
                 <div className={styles.inputBox}>
-                    <input name='email' type='text' placeholder='Email' required />
+                    <input
+                        name='email'
+                        type='text'
+                        placeholder='Email'
+                        value={registerValues.email}
+                        onChange={handleInputChange}
+                        required
+                    />
                     {errors.email && <p className={styles.error}>{errors.email}</p>} {/* Hiển thị lỗi email */}
                 </div>
                 <div className={styles.inputBox}>
-                    <input name='phone-number' type='text' placeholder='Số điện thoại' required />
+                    <input
+                        name='phoneNumber'
+                        type='text'
+                        placeholder='Số điện thoại'
+                        value={registerValues.phoneNumber}
+                        onChange={handleInputChange}
+                        required
+                    />
                     {errors.phoneNumber && <p className={styles.error}>{errors.phoneNumber}</p>} {/* Hiển thị lỗi số điện thoại */}
                 </div>
-                <button type='submit'>Đăng kí</button>
+                <button type='submit'>Đăng ký</button>
 
                 <div className={styles.registerLink}>
                     <p>Đã có tài khoản? <a href='' onClick={() => navigate('/login')}>Đăng nhập ngay</a></p>

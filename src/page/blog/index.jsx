@@ -1,18 +1,51 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios'; // Sử dụng axios để gọi API
 import styles from './blog.module.css';
 import Footer from '../../component/footer';
-
+import Tagbar from '../../component/tagbar';
+import Header from '../../component/header';
 
 const Blog = () => {
+    const [posts, setPosts] = useState([]); // Khởi tạo state để lưu dữ liệu từ API
+    const [visiblePosts, setVisiblePosts] = useState(4); // Số lượng bài viết hiển thị ban đầu
+    const [loading, setLoading] = useState(true); // State để theo dõi trạng thái tải dữ liệu
+
     useEffect(() => {
-        document.body.style.backgroundColor = "white"; // Màu nền cho trang chủ
+        // Gọi API để lấy dữ liệu
+        axios.get('https://dummyjson.com/posts')
+            .then(response => {
+                setPosts(response.data.posts); // Lưu dữ liệu bài viết vào state
+                setLoading(false); // Kết thúc trạng thái tải dữ liệu
+            })
+            .catch(error => {
+                console.error("Lỗi khi tải dữ liệu:", error);
+                setLoading(false);
+            });
+
+        // Thêm width: 1920px cho body
+        document.body.style.width = "1920px";
+        document.body.style.backgroundColor = "white"; // Màu nền cho trang blog
 
         return () => {
-            document.body.style.backgroundColor = ""; // Khôi phục về mặc định nếu cần
+            // Khôi phục lại giá trị mặc định khi rời khỏi trang
+            document.body.style.width = "";
+            document.body.style.backgroundColor = "";
         };
     }, []);
+
+    // Hàm để hiển thị thêm 4 bài viết
+    const showMorePosts = () => {
+        setVisiblePosts(prevVisiblePosts => prevVisiblePosts + 4);
+    };
+
+    if (loading) {
+        return <p>Đang tải dữ liệu...</p>;
+    }
+
     return (
         <>
+            <Header />
+            <Tagbar />
             <header className={`${styles.masthead}`} style={{ backgroundImage: "url('imagines/background/KoiFish.jpg')" }}>
                 <div className="container position-relative px-4 px-lg-5">
                     <div className="row gx-4 gx-lg-5 justify-content-center">
@@ -27,75 +60,33 @@ const Blog = () => {
             <div className={styles.container + " px-4 px-lg-5"}>
                 <div className="row gx-4 gx-lg-5 justify-content-center">
                     <div className="col-md-10 col-lg-8 col-xl-7">
-                        {/* Post preview */}
-                        <div className={styles.postPreview}>
-                            <a href="title">
-                                <h2 className={styles.postTitle}>
-                                    Man must explore, and this is exploration at its greatest
-                                </h2>
-                                <h3 className={styles.postSubtitle}>
-                                    Problems look mighty small from 150 miles up
-                                </h3>
-                            </a>
-                            <p className={styles.postMeta}>
-                                Đăng bởi Start Bootstrap on September 24, 2023
-                            </p>
-                        </div>
-                        {/* Divider */}
-                        <hr className="my-4" />
+                        {posts.slice(0, visiblePosts).map((post) => (
+                            <div className={styles.postPreview} key={post.id}>
+                                <a href={`/post/${post.id}`}>
+                                    <h2 className={styles.postTitle}>
+                                        {post.title}
+                                    </h2>
+                                    <h3 className={styles.postSubtitle}>
+                                        {post.body.slice(0, 100)}...
+                                    </h3>
+                                </a>
+                                <p className={styles.postMeta}>
+                                    Đăng bởi {post.userId} vào ngày {new Date(post.date).toLocaleDateString()}
+                                </p>
+                                <hr className="my-4" />
+                            </div>
+                        ))}
 
-                        {/* Post preview */}
-                        <div className={styles.postPreview}>
-                            <a href="title">
-                                <h2 className={styles.postTitle}>
-                                    I believe every human has a finite number of heartbeats. I don't intend to waste any of mine.
-                                </h2>
-                            </a>
-                            <p className={styles.postMeta}>
-                                Đăng bởi Start Bootstrap on September 24, 2023
-                            </p>
-                        </div>
-                        {/* Divider */}
-                        <hr className="my-4" />
-
-                        {/* Post preview */}
-                        <div className={styles.postPreview}>
-                            <a href="title">
-                                <h2 className={styles.postTitle}>
-                                    Science has not yet mastered prophecy
-                                </h2>
-                                <h3 className={styles.postSubtitle}>
-                                    We predict too much for the next year and yet far too little for the next ten.
-                                </h3>
-                            </a>
-                            <p className={styles.postMeta}>
-                                Đăng bởi Start Bootstrap on September 24, 2023
-                            </p>
-                        </div>
-                        {/* Divider */}
-                        <hr className="my-4" />
-
-                        {/* Post preview */}
-                        <div className={styles.postPreview}>
-                            <a href="title">
-                                <h2 className={styles.postTitle}>Failure is not an option</h2>
-                                <h3 className={styles.postSubtitle}>
-                                    Many say exploration is part of our destiny, but it’s actually our duty to future generations.
-                                </h3>
-                            </a>
-                            <p className={styles.postMeta}>
-                                Đăng bởi Start Bootstrap on September 24, 2023
-                            </p>
-                        </div>
-                        {/* Divider */}
-                        <hr className="my-4" />
-
-                        {/* Pager */}
-                        <div className="d-flex justify-content-end mb-4">
-                            <a className="btn btn-primary text-uppercase" href="#!">
-                                Xem thêm →
-                            </a>
-                        </div>
+                        {/* Hiển thị nút "Xem thêm" hoặc thông báo khi hết bài */}
+                        {visiblePosts < posts.length ? (
+                            <div className="d-flex justify-content-end mb-4">
+                                <button className="btn btn-primary text-uppercase" onClick={showMorePosts}>
+                                    Xem thêm →
+                                </button>
+                            </div>
+                        ) : (
+                            <p className="text-center">Đã hết bài viết.</p>
+                        )}
                     </div>
                 </div>
             </div>
